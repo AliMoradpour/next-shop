@@ -4,10 +4,15 @@ import { useState } from "react";
 import SendOTPForm from "./SendOTPForm";
 import http from "@/services/httpService";
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { getOTP } from "@/services/authServices";
 
 const AuthPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const { data, error, isPending, mutateAsync } = useMutation({
+    mutationFn: getOTP,
+  });
   const phoneNumberHandler = (e) => {
     e.preventDefault();
     setPhoneNumber(e.target.value);
@@ -16,7 +21,7 @@ const AuthPage = () => {
   const sendOTPHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await http.post("/user/get-otp", { phoneNumber }).then;
+      const data = await mutateAsync(phoneNumber);
       console.log(data.data);
     } catch (error) {
       toast.error(error?.response?.data?.message);
