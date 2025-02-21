@@ -38,8 +38,8 @@ const AuthPage = () => {
       const data = await mutateGetOtp(phoneNumber);
       setStep(2);
       setTime(RESEND_TIME);
-      console.log(data);
       toast.success(data.message);
+      setOtp("");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -50,14 +50,14 @@ const AuthPage = () => {
     try {
       const data = await mutateCheckOtp({ phoneNumber, otp });
       setStep(2);
-      console.log(data);
-
       toast.success(data.message);
+      
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
   };
 
+  // timer
   useEffect(() => {
     const timer =
       time > 0 &&
@@ -70,6 +70,7 @@ const AuthPage = () => {
     };
   }, [time]);
 
+  // conditional Check or send Step
   const renderSteps = () => {
     switch (step) {
       case 1:
@@ -87,9 +88,10 @@ const AuthPage = () => {
             otp={otp}
             setOtp={setOtp}
             onSubmit={checkOtpHandler}
-            onBack={() => setOtp((s) => s - 1)}
+            onBack={() => setStep((s) => s - 1)}
             time={time}
             onResendOtp={sendOtpHandler}
+            otpResponse={otpResponse}
           />
         );
 
