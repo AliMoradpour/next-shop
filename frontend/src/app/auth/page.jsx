@@ -13,6 +13,7 @@ const AuthPage = () => {
   const { data, error, isPending, mutateAsync } = useMutation({
     mutationFn: getOTP,
   });
+
   const phoneNumberHandler = (e) => {
     e.preventDefault();
     setPhoneNumber(e.target.value);
@@ -22,7 +23,8 @@ const AuthPage = () => {
     e.preventDefault();
     try {
       const data = await mutateAsync(phoneNumber);
-      console.log(data.data);
+      console.log(data);
+      toast.success(data.message);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -31,7 +33,12 @@ const AuthPage = () => {
   return (
     <div className="flex justify-center">
       <div className="w-full sm:max-w-sm">
-        <SendOTPForm phoneNumber={phoneNumber} onChange={phoneNumberHandler} onSubmit={sendOTPHandler} />
+        <SendOTPForm
+          phoneNumber={phoneNumber}
+          onChange={phoneNumberHandler}
+          onSubmit={sendOTPHandler}
+          isLoading={isPending}
+        />
       </div>
     </div>
   );
