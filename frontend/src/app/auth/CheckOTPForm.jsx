@@ -1,15 +1,19 @@
 import OTPInput from "react-otp-input";
+import { MdOutlineArrowRightAlt } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 
-const CheckOTPForm = ({ onSubmit, otp, setOtp, onBack, time, onResendOtp, otpResponse }) => {
+const CheckOTPForm = ({ onSubmit, otp, setOtp, onBack, time, onResendOtp, otpResponse, isCheckingOtp }) => {
   return (
     <div>
       <button onClick={onBack} className="mb-4">
-        برگشت
+        <MdOutlineArrowRightAlt className="w-6 h-6 text-secondary-500" />
       </button>
       {otpResponse && (
         <p>
           {otpResponse?.message}
-          <button onClick={onBack}>ویرایش؟</button>
+          <button onClick={onBack}>
+            <CiEdit className="w-6 h-6 text-primary-500" />
+          </button>
         </p>
       )}
       <div className="mb-4">
@@ -31,9 +35,15 @@ const CheckOTPForm = ({ onSubmit, otp, setOtp, onBack, time, onResendOtp, otpRes
           }}
           containerStyle="flex flex-row-reverse gap-x-2 justify-center"
         />
-        <button type="submit" className="btn btn--primary w-full">
-          تایید
-        </button>
+        <div>
+          {isCheckingOtp ? (
+            <p>Loading</p>
+          ) : (
+            <button type="submit" className="btn btn--primary w-full">
+              تایید
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
