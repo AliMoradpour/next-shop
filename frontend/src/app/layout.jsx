@@ -14,11 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body suppressHydrationWarning={true} className={`${vazirFont.variable} font-sans`}>
-        <Toaster />
-        <Header />
-        <div className="container xl:max-w-screen-xl">
-          <Providers>{children}</Providers>
-        </div>
+        <Providers>
+          <Toaster />
+          <div className="container xl:max-w-screen-xl">
+            <Header />
+
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
