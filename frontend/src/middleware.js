@@ -1,44 +1,26 @@
 import { NextResponse } from "next/server";
+import middlewareAuth from "./utils/middlewareAuth";
 
 export async function middleware(req) {
   const url = req.url;
   const pathname = req.nextUrl.pathname;
 
   if (pathname.startsWith("/admin")) {
-    let strCookie = "";
-    req.cookies.getAll().forEach((item) => {
-      strCookie += `${item?.name}=${item?.valu}; `;
-    });
-
-    const { data } = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Cookie: strCookie,
-      },
-    }).then((res) => res.json());
+    const user = await middlewareAuth(req);
+    if (!user) {
+      return NextResponse.redirect(new URL("/auth", url));
+    }
+    if (user && user.role !== "ADMIN") return NextResponse.redirect(new URL("/", url));
   }
 
   if (pathname.startsWith("/profile")) {
-    let strCookie = "";
-    req.cookies.getAll().forEach((item) => {
-      strCookie += `${item?.name}=${item?.valu}; `;
-    });
-
-    const { data } = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Cookie: strCookie,
-      },
-    }).then((res) => res.json());
-    const { user } = data || {};
-    if(!user){
-      NextResponse.redirect(new URL("/auth", url))
+    const user = await middlewareAuth(req);
+    if (!user) {
+      return NextResponse.redirect(new URL("/auth", url));
     }
   }
 }
 
 export const config = {
-  matcher: ["/admin", "/profile"],
+  matcher: ["/admin/:path*", "/profile/:path*"],
 };
