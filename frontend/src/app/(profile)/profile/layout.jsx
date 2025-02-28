@@ -1,13 +1,12 @@
 import vazirFont from "@/constants/localFonts";
-import "./globals.css";
+import "../globals.css";
 
-import Header from "./Header";
 import { Toaster } from "react-hot-toast";
-import Providers from "./Providers";
+import Providers from "@/app/Providers";
 
 export const metadata = {
-  title: "Next Shop Panel",
-  description: "Next.js Course Fronthooks Course",
+  title: "پروفایل کاربر",
+  description: "صفحه پروفایل کاربر",
 };
 
 export default function RootLayout({ children }) {
@@ -16,11 +15,7 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning={true} className={`${vazirFont.variable} font-sans`}>
         <Providers>
           <Toaster />
-          <div className="container xl:max-w-screen-xl">
-            <Header />
-
-            {children}
-          </div>
+          <div className="container xl:max-w-screen-xl">{children}</div>
         </Providers>
       </body>
     </html>
