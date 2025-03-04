@@ -8,7 +8,7 @@ export default function SideBar() {
           <Link href="/">صفحه اصلی</Link>
         </li>
         <li>
-          <Link href="/me">اطلاعات کاربر</Link>
+          <Link href="/profile/me">اطلاعات کاربر</Link>
         </li>
       </ul>
     </div>
