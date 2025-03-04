@@ -16,6 +16,9 @@ export default function SideBar() {
           <Link href="/">صفحه اصلی</Link>
         </li>
         <li>
+          <Link href="/profile">داشبورد</Link>
+        </li>
+        <li>
           <Link href="/profile/me">اطلاعات کاربر</Link>
         </li>
         <li>
