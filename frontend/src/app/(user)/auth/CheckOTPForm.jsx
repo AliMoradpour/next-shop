@@ -1,6 +1,7 @@
 import OTPInput from "react-otp-input";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import Loading from "@/common/Loading";
 
 const CheckOTPForm = ({ onSubmit, otp, setOtp, onBack, time, onResendOtp, otpResponse, isCheckingOtp }) => {
   return (
@@ -37,7 +38,7 @@ const CheckOTPForm = ({ onSubmit, otp, setOtp, onBack, time, onResendOtp, otpRes
         />
         <div>
           {isCheckingOtp ? (
-            <p>Loading</p>
+            <Loading />
           ) : (
             <button type="submit" className="btn btn--primary w-full">
               تایید

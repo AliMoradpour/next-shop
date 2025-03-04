@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/common/Loading";
 import { useGetUser } from "@/hooks/useAuth";
 import { toLocalDateString } from "@/utils/toLocalDate";
 
@@ -7,7 +8,7 @@ const Profile = () => {
   const { data, isLoading } = useGetUser();
   const { user } = data || {};
 
-  if (isLoading) return <p>Loading data ...</p>;
+  if (isLoading) return <Loading />;
 
   return (
     <div>
