@@ -1,8 +1,23 @@
+"use client";
+
+import { useGetUser } from "@/hooks/useAuth";
+import { toLocalDateString } from "@/utils/toLocalDate";
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
+  const { data, isLoading } = useGetUser();
+  const { user } = data || {};
 
-export default Profile
+  if (isLoading) return <p>Loading data ...</p>;
+
+  return (
+    <div>
+      <h1>{user.name} خوش آمدی</h1>
+      <p>
+        <span>تاریخ پیوستن: </span>
+        <span>{toLocalDateString(user.createdAt)}</span>
+      </p>
+    </div>
+  );
+};
+
+export default Profile;
