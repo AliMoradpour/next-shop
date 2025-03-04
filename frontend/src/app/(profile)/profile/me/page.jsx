@@ -59,7 +59,7 @@ function MePage() {
             <Loading />
           ) : (
             <button type="submit" className="btn btn--primary w-full">
-              ارسال کد تایید
+              تایید
             </button>
           )}
         </div>
