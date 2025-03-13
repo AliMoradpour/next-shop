@@ -10,7 +10,7 @@ export default function CategorySidebar({ categories }) {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(searchParams.get("category")?.split(",") || []);
 
   const categoryHandler = (e) => {
     const value = e.target.value;
